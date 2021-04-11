@@ -47,9 +47,9 @@ button.addEventListener('click', () => {
         let str = document.querySelector('#text').value
         str = str.trim()
         str.length == 0 ? $('#myModal').modal('show') : ''
-        str = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-        str = str.replace(/\s{2,}/g,"")
-        str = str.replace(/\?/g, '')
+        str = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g," ")
+        str = str.replace(/\s{2,}/g," ")
+        str = str.replace(/\?/g, ' ')
         str = str.toLowerCase()
 
         arr = str.split(" ")   
