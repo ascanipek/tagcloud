@@ -2,36 +2,31 @@
 
 let button = document.querySelector('#gen')
 
-count = (array) => {
-            res = []
-            array.sort();
-            var current = null;
-            var cnt = 0;
-            for (var i = 0; i < array.length; i++) {
-                if (arr[i] != current) {
-                    if (cnt > 0) {
-                        let block = {
-                            text: arr[i],
-                            size: cnt * 10
-                        }
-                        res.push(block)
-                    }
-                    current = array[i];
-                    cnt = 1;
-                } else {
-                    cnt++;
-                }
-            }
+function count(array_elements){
+    let res = []
+    array_elements.sort();
+
+    var current = null;
+    var cnt = 0;
+    for (var i = 0; i < array_elements.length; i++) {
+        if (array_elements[i] != current) {
             if (cnt > 0) {
-                let block = {
-                    text: arr[i],
-                    size: cnt * 5
-                }
-                res.push(block)
+                res.push({text: current, size: cnt * 10})
+
             }
-            console.log(res)
-            return res
+            current = array_elements[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+    if (cnt > 0) {
+        res.push({text: current, size: cnt * 10})
+    }
+    return res
 }
+
+
 
 function saveSvg(svgEl, name) {
     svgEl.setAttribute("xmlns", "http://www.w3.org/2000/svg");
@@ -53,13 +48,15 @@ button.addEventListener('click', () => {
         str = str.trim()
         str.length == 0 ? $('#myModal').modal('show') : ''
         str = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-        str = str.replace(/\s{2,}/g," ")
+        str = str.replace(/\s{2,}/g,"")
         str = str.replace(/\?/g, '')
         str = str.toLowerCase()
 
         arr = str.split(" ")   
-        // let test = count(arr)
-        // console.log(test)
+        
+     
+        let test = count(arr)
+        console.log(test)
         let skillsToDraw = count(arr)
 
         let w = document.querySelector('#width').value
