@@ -7,7 +7,6 @@ count = (array) => {
             array.sort();
             var current = null;
             var cnt = 0;
-            
             for (var i = 0; i < array.length; i++) {
                 if (arr[i] != current) {
                     if (cnt > 0) {
@@ -30,6 +29,7 @@ count = (array) => {
                 }
                 res.push(block)
             }
+            console.log(res)
             return res
 }
 
@@ -48,34 +48,24 @@ function saveSvg(svgEl, name) {
 }
 
 
-button.addEventListener('click', () => {
-    
-        // let str = "Makine öğrenmesi nedir ve nasıl çalışır? Makine öğrenmesi (ML), bir bilgisayarın doğrudan yönergeler olmadan öğrenmesine yardımcı olmak için matematiksel modelleri kullanma işlemidir. Bu, yapay zekanın (AI) bir alt kümesi olarak kabul edilir. Makine öğrenmesi, verilerdeki kalıpları belirlemek için algoritmaları kullanır. Tahmin yapabilen bir veri modeli oluşturmak için de bu kalıplar kullanılır. Tıpkı insanların daha fazla alıştırma yaptıkça gelişmesi gibi, veri ve deneyim miktarı arttıkça makine öğrenmesinin sonuçları da daha doğru hale gelir. Uyarlanabilirliği sayesinde makine öğrenmesi verilerin, isteklerin veya görevlerin sürekli değiştiği senaryolarda veya bir çözümün etkili bir şekilde kodlanmasının mümkün olmadığı durumlarda harika bir seçenektir."
-        
+button.addEventListener('click', () => {        
         let str = document.querySelector('#text').value
         str = str.trim()
-        if(str.length == 0)
-            $('#myModal').modal('show');
-
-        
+        str.length == 0 ? $('#myModal').modal('show') : ''
         str = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
         str = str.replace(/\s{2,}/g," ")
         str = str.replace(/\?/g, '')
         str = str.toLowerCase()
-        arr = str.split(" ")
-        
 
+        arr = str.split(" ")   
+        // let test = count(arr)
+        // console.log(test)
         let skillsToDraw = count(arr)
-
-
-        // Next you need to use the layout script to calculate the placement, rotation and size of each word:
 
         let w = document.querySelector('#width').value
         let h = document.querySelector('#height').value
         if(w.length == 0 || h.length == 0){
             $('#myModal').modal('show');
-            // alert('Boş Bırakma')
-
         }
         else{
             var width = document.querySelector('#width').value;
@@ -94,9 +84,6 @@ button.addEventListener('click', () => {
             .on("end", drawSkillCloud)
             .start();
     
-        // Finally implement `drawSkillCloud`, which performs the D3 drawing:
-    
-        // apply D3.js drawing API
             function drawSkillCloud(words) {
                 document.querySelector('#cloud').innerHTML = ''
                 d3.select("#cloud").append("svg")
@@ -128,19 +115,12 @@ button.addEventListener('click', () => {
                     .text(function(d) {
                         return d.text;
                     });
-            }
-        
-        // set the viewbox to content bounding box (zooming in on the content, effectively trimming whitespace)
-    
+            }    
             let svg = document.getElementsByTagName("svg")[0];
             var bbox = svg.getBBox();
             var viewBox = [bbox.x, bbox.y, bbox.width, bbox.height].join(" ");
             svg.setAttribute("viewBox", viewBox);
         }
-        
-
-
-
 })
 
 document.querySelector('#save').addEventListener('click', () => {
